@@ -10,23 +10,21 @@ const data = {
 
 // Only edit below
 
-const { first = 1 } = data.first || {}
-const { second = 1 } = data.second || {}
-const { third = 1 } = data.third || {}
+const [firstKey, firstArray] = data.lists.find(([key]) => key === 'first') || [];
+const [secondKey, secondArray] = data.lists.find(([key]) => key === 'second') || [];
+const [thirdKey, thirdArray] = data.lists.find(([key]) => key === 'third') || [];
 
 const result = []
 
 const extractBiggest = () => {
-	if (first[-1] > second[-1]) {
-		return first
+	if (firstArray && firstArray.length > 0 && (secondArray.length === 0 || firstArray.slice(-1)[0] > secondArray.slice(-1)[0]) && (thirdArray.length === 0 || firstArray.slice(-1)[0] > thirdArray.slice(-1)[0])) {
+	  result.push(firstArray.pop());
+	} else if (secondArray && secondArray.length > 0 && (thirdArray.length === 0 || secondArray.slice(-1)[0] > thirdArray.slice(-1)[0])) {
+	  result.push(secondArray.pop());
+	} else if (thirdArray && thirdArray.length > 0) {
+	  result.push(thirdArray.pop());
 	}
-
-	if (third[-1] < 1) {
-		return second
-	}
-	
-	return third
-}
+  }
 
 // Only edit above
 
@@ -48,4 +46,4 @@ result.push(extractBiggest())
 result.push(extractBiggest())
 result.push(extractBiggest())
 
-console.log(result)
+console.log(result);
